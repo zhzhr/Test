@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js"></script>
+    <script src="../node_modules/exceljs/excel.js"></script>
+
+    <script>
+            function ready() {
+              const workbook = new Excel.Workbook();
+              workbook.creator = "Me";
+              workbook.lastModifiedBy = "Her";
+              workbook.created = new Date(1985, 8, 30);
+              workbook.modified = new Date();
+              workbook.lastPrinted = new Date(2016, 9, 27);
+              // 将工作簿日期设置为 1904 年日期系统
+              workbook.properties.date1904 = true;
+
+              workbook.views = [
+                {
+                  x: 0,
+                  y: 0,
+                  width: 10000,
+                  height: 20000,
+                  firstSheet: 0,
+                  activeTab: 1,
+                  visibility: "visible",
+                },
+              ];
+
+              const sheet = workbook.addWorksheet("My Sheet");
+
+              // 创建带有红色标签颜色的工作表
+              const sheet = workbook.addWorksheet("My Sheet", {
+                properties: { tabColor: { argb: "FFC0000" } },
+              });
+
+              // 创建一个隐藏了网格线的工作表
+              const sheet = workbook.addWorksheet("My Sheet", {
+                views: [{ showGridLines: false }],
+              });
+
+              // 创建一个第一行和列冻结的工作表
+              const sheet = workbook.addWorksheet("My Sheet", {
+                views: [{ xSplit: 1, ySplit: 1 }],
+              });
+
+              // 使用A4设置的页面设置设置创建新工作表 - 横向
+              const worksheet = workbook.addWorksheet("My Sheet", {
+                pageSetup: { paperSize: 9, orientation: "landscape" },
+              });
+
+              // 创建一个具有页眉页脚的工作表
+              const sheet = workbook.addWorksheet("My Sheet", {
+                headerFooter: {
+                  firstHeader: "Hello Exceljs",
+                  firstFooter: "Hello World",
+                },
+              });
+
+              // 创建一个冻结了第一行和第一列的工作表
+              const sheet = workbook.addWorksheet("My Sheet", {
+                views: [{ state: "frozen", xSplit: 1, ySplit: 1 }],
+              });
+
+              // 写入文件
+            const workbook = createAndFillWorkbook();
+            await workbook.xlsx.writeFile("d:\\test.xlsx");
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
